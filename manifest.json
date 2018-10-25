@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "Highlighted list reformatter",
+  "version": "1.0",
+
+  "description": "Takes highlighted text and reformats numbers if it's a list.",
+
+  "browser_action": {
+      "default_title": "Reformat",
+   "default_icon": "src/icon.png",
+   "default_popup": "src/popup.html"
+  },
+  "permissions": [
+   "activeTab", "tabs"
+],
+
+
+"content_scripts":
+      [{
+        "matches": ["http://*/*","https://*/*"],
+        "js":      ["src/vendor/ace.js", "src/reformatter.js"],
+        "run_at": "document_end"
+      }],
+
+  "web_accessible_resources": ["src/injectedScript.js"]
+}
