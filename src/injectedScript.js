@@ -1,7 +1,7 @@
 var editorDOM = document.querySelector('.ace_editor');
 
 if (editorDOM) {
-	var editor = ace.edit(editorDOM.id);
+	var editor = ace.edit(editorDOM);
 	var selectedTextRange = editor.selection.getRange();
 	var selectedText = editor.getSession().doc.getTextRange(selectedTextRange);
 
