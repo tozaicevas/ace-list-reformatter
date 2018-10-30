@@ -17,11 +17,6 @@ document.addEventListener('getSelectedTextEvent', (e) => {
 		alert('Please select a string.');
 		return;
 	}
-	let isNumerical = checkIfNumericalList(lines);
-	if (!isNumerical.isNumericalList) {
-		alert(`Can't reformat a non-numerical list.\n${isNumerical.wrongLines}`);
-		return;
-	}
 	reformattedText = getReformattedText(lines);
 });
 
@@ -63,27 +58,13 @@ function getLines(text) {
 	return lines;
 }
 
-function checkIfNumericalList(lines) {
-	// check if given array of lines is a numerical list
-	let isNumericalList = true;
-	let wrongLines = '';
-	for (let line of lines) {
-		if (!numberRegex.test(line) && !whiteRegex.test(line)) {
-			wrongLines += line + '\n';
-			isNumericalList = false;
-		}
-	}
-	return {
-		isNumericalList: isNumericalList,
-		wrongLines: wrongLines
-	}
-}
-
 function getReformattedLines(lines) {
 	let reformattedLines = [];
 	let i = 1;
-	for (let line of lines)
-		reformattedLines.push(whiteRegex.test(line) ? line : getReformattedLine(line, i++));
+	for (let line of lines) {
+		let pushLine = (whiteRegex.test(line) || !numberRegex.test(line)) ? line : getReformattedLine(line, i++);
+		reformattedLines.push(pushLine);
+	}
 	return reformattedLines;
 }
 

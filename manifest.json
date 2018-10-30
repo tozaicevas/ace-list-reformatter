@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "Highlighted list reformatter",
+  "name": "Ace list reformatter",
   "version": "1.0",
 
-  "description": "Takes highlighted text and reformats numbers if it's a list.",
+  "description": "Takes highlighted text and reformats numbers in an ace editor.",
 
   "browser_action": {
       "default_title": "Reformat",
