@@ -12,11 +12,11 @@ document.addEventListener('reformatValue', function() {
 
 document.addEventListener('getSelectedTextEvent', (e) => {
 	let selectedText = e.detail.selectedText;
-	let lines = getLines(selectedText);
-	if (!lines) {
+	if (!selectedText) {
 		alert('Please select a string.');
 		return;
 	}
+	let lines = getLines(selectedText);
 	reformattedText = getReformattedText(lines);
 });
 
