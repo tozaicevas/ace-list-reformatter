@@ -1,4 +1,4 @@
-var editorDOM = document.querySelector('.ace_editor');
+editorDOM = document.querySelector('.ace_editor');
 
 if (editorDOM) {
 	let editor = ace.edit(editorDOM);
@@ -20,3 +20,5 @@ if (editorDOM) {
 }
 else
 	alert('Webpage has no ace editor.');
+
+delete editorDom;
