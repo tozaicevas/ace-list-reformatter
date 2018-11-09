@@ -2,7 +2,7 @@ const numberRegex = /^\s*\d+\./;
 const whiteRegex = /^\s*$/;
 // any number that ends with dot and starts the line (whitespaces are omitted)
 
-var reformattedText = null;
+let reformattedText = false;
 
 document.addEventListener('reformatValue', function() {
 	injectScript('src/injectedScript.js');
@@ -23,23 +23,23 @@ document.addEventListener('getSelectedTextEvent', (e) => {
 function injectScript(name) {
 	let script = document.createElement('script');
 	script.src = chrome.runtime.getURL(name);
-	(document.head || document.documentElement).appendChild(script);
 	script.onload = function() {
-		if (reformattedText) {
-			document.dispatchEvent(new CustomEvent('replaceSelectedTextEvent', {
-				detail: {
-					replaceText: reformattedText
-				}
-			}));
-		    script.remove();
-		}
+		document.dispatchEvent(new CustomEvent('replaceSelectedTextEvent', {
+			detail: {
+				replaceText: reformattedText
+			}
+		}));
+		this.remove();
 	};
+	(document.head || document.documentElement).appendChild(script);
 }
 
 function getReformattedText(lines) {
 	let reformattedLines = getReformattedLines(lines);
-	let reformattedText = reformattedLines.join('\n');
-	return reformattedText;
+	let equalLines = true;
+	reformattedLines.forEach((reformattedLine, index) =>
+		equalLines = reformattedLine === lines[index] && equalLines);
+	return !equalLines && reformattedLines.join('\n');
 }
 
 function getLines(text) {
